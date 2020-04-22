@@ -1,17 +1,17 @@
 module Enumerable
 
   def my_each
-    for i in(0...self.size) do
+    return to_enum(:my_each) unless block_given?
+    self.size.times do |i|
       yield(self[i])   
     end
   end
   
-  [1,2,3,4,5].my_each do |num|
-    print num
-  end
+  puts [1,2,3,4,5].my_each
   
   def my_each_with_index
-    for i in(0...self.size) do
+    return to_enum(:my_each_with_index) unless block_given?
+    self.size.times do |i|
       yield(self[i], i)   
     end
   end
@@ -21,6 +21,7 @@ module Enumerable
   end
   
   def my_select 
+     return to_enum(:my_select) unless block_given?
      array = []
      self.my_each do |e|
       array << e if yield(e)
@@ -28,9 +29,7 @@ module Enumerable
      array
   end
   
-  [1,2,3,4,5].my_select do |num|
-     num > 1
-  end
+  [1,2,3,4,5].my_select
   
   
   def my_all? 
@@ -42,9 +41,9 @@ module Enumerable
      true
   end
   
-  [1,2,3,4,5].my_all? do |num|
-     num>0
-  end
+  # [1,2,3,4,5].my_all? do |num|
+  #    num>0
+  # end
   
   def my_any?
     self.my_each do |e|
@@ -55,9 +54,9 @@ module Enumerable
     false
   end
   
-  [1,2,3,4,5].my_any? do |num|
-     num == 2
-  end
+  # [1,2,3,4,5].my_any? do |num|
+  #    num == 2
+  # end
   
   def my_none?
     self.my_each do |e|
@@ -68,9 +67,9 @@ module Enumerable
     true
   end
   
-  [1,2,3,4,5].my_none? do |num|
-     num == 5
-  end
+  # [1,2,3,4,5].my_none? do |num|
+  #    num == 5
+  # end
   
   def my_count
     count = 0
@@ -80,6 +79,7 @@ module Enumerable
     count
   end
   
-  [1,2,3,nil,5].my_count do |num|
-     num == nil
-  end
+  # [1,2,3,nil,5].my_count do |num|
+  #    num == nil
+  # end
+end
