@@ -89,4 +89,18 @@ module Enumerable
     end
     count
   end
+
+  def my_map(proc = nil)
+    result = []
+    return to_enum(:my_map) unless block_given?
+
+    my_each do |item|
+      result << if block_given?
+                  yield(item)
+                else
+                  proc.call(item)
+                end
+    end
+    result
+  end
 end
