@@ -42,9 +42,19 @@ module Enumerable
     true
   end
 
-  def my_any?
-    my_each do |e|
-      return true if yield(e)
+  def my_any?(arg = nil) # rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
+    my_each do |item|
+      if arg.class == Class
+        return true if arg === item # rubocop:disable Style/CaseEquality
+      elsif arg.class == Regexp
+        return true if arg =~ item
+      elsif block_given?
+        return true if yield(item)
+      elsif arg
+        return true if item == arg
+      elsif item
+        return true
+      end
     end
     false
   end
