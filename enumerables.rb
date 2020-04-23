@@ -59,9 +59,19 @@ module Enumerable
     false
   end
 
-  def my_none?
-    my_each do |e|
-      return false if yield(e)
+  def my_none?(arg = nil) # rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
+    my_each do |item|
+      if arg.class == Class
+        return false if arg === item # rubocop:disable Style/CaseEquality
+      elsif arg.class == Regexp
+        return false if arg =~ item
+      elsif block_given?
+        return false if yield(item)
+      elsif arg
+        return false if item == arg
+      elsif item
+        return false
+      end
     end
     true
   end
