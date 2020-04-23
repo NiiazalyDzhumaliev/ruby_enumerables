@@ -25,9 +25,19 @@ module Enumerable
     array
   end
 
-  def my_all?
-    my_each do |e|
-      return false unless yield(e)
+  def my_all?(arg = nil)
+    my_each do |item|
+      if arg.class == Class
+        return false unless arg === item
+      elsif arg.class == Regexp
+        return false unless arg =~ item
+      elsif block_given?
+        return false unless yield(item)
+      elsif arg
+        return false unless item == arg
+      else
+        return false unless item
+      end
     end
     true
   end
