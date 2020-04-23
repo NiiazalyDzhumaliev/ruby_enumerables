@@ -25,10 +25,10 @@ module Enumerable
     array
   end
 
-  def my_all?(arg = nil)
+  def my_all?(arg = nil) # rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
     my_each do |item|
       if arg.class == Class
-        return false unless arg === item
+        return false unless arg === item # rubocop:disable Style/CaseEquality
       elsif arg.class == Regexp
         return false unless arg =~ item
       elsif block_given?
