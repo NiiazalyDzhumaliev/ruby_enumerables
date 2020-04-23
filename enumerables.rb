@@ -76,10 +76,16 @@ module Enumerable
     true
   end
 
-  def my_count
+  def my_count(arg = nil)
     count = 0
-    my_each do |e|
-      count += 1 if yield(e)
+    my_each do |item|
+      if !arg.nil?
+        count += 1 if item == arg
+      elsif block_given?
+        count += 1 if yield(item)
+      else
+        count += 1
+      end
     end
     count
   end
