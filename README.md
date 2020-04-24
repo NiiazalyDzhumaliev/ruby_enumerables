@@ -27,9 +27,9 @@
 
 👤 **Niiazaly Dzhumaliev**
 
-- Github: [@sebGilR](https://github.com/NiiazalyDzhumaliev)
-- Twitter: [@sebGilR](https://twitter.com/Niiazaly1)
-- Linkedin: [Sebastian Gil Rodriguez](https://www.linkedin.com/in/niiazaly-dzhumaliev-117707132/)
+- Github: [@NiiazalyDzhumaliev](https://github.com/NiiazalyDzhumaliev)
+- Twitter: [@Niiazaly1](https://twitter.com/Niiazaly1)
+- Linkedin: [Niiazaly Dzhumaliev](https://www.linkedin.com/in/niiazaly-dzhumaliev-117707132/)
 
 ## 🤝 Contributing
 
