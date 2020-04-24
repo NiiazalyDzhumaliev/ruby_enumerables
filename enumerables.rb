@@ -1,4 +1,4 @@
-module Enumerable
+module Enumerable # rubocop:disable Metrics/ModuleLength
   def my_each
     return to_enum(:my_each) unless block_given?
 
@@ -102,5 +102,33 @@ module Enumerable
                 end
     end
     result
+  end
+
+  def my_inject(*args) # rubocop:disable Metrics/CyclomaticComplexity, Metrics/MethodLength, Metrics/PerceivedComplexity
+    new_array = is_a?(Array) ? self : to_a
+    memo = args[0] if args[0].is_a? Integer
+    if args[0].is_a?(Symbol) || args[0].is_a?(String)
+      sym = args[0]
+    elsif args[0].is_a?(Integer)
+      sym = args[1] if args[1].is_a?(Symbol) || args[1].is_a?(String)
+    end
+    if sym
+      new_array.my_each do |item|
+        memo = if memo
+                 memo.send(sym, item)
+               else
+                 item
+               end
+      end
+    else
+      new_array.my_each do |item|
+        memo = if memo
+                 yield(memo, item)
+               else
+                 item
+               end
+      end
+    end
+    memo
   end
 end
