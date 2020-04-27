@@ -1,4 +1,5 @@
-module Enumerable # rubocop:disable Metrics/ModuleLength
+# rubocop:disable Metrics/ModuleLength, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity, Style/CaseEquality, Metrics/MethodLength
+module Enumerable
   def my_each
     return to_enum(:my_each) unless block_given?
 
@@ -25,10 +26,10 @@ module Enumerable # rubocop:disable Metrics/ModuleLength
     array
   end
 
-  def my_all?(arg = nil) # rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
+  def my_all?(arg = nil)
     my_each do |item|
       if arg.class == Class
-        return false unless arg === item # rubocop:disable Style/CaseEquality
+        return false unless arg === item
       elsif arg.class == Regexp
         return false unless arg =~ item
       elsif block_given?
@@ -42,10 +43,10 @@ module Enumerable # rubocop:disable Metrics/ModuleLength
     true
   end
 
-  def my_any?(arg = nil) # rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
+  def my_any?(arg = nil)
     my_each do |item|
       if arg.class == Class
-        return true if arg === item # rubocop:disable Style/CaseEquality
+        return true if arg === item
       elsif arg.class == Regexp
         return true if arg =~ item
       elsif block_given?
@@ -59,10 +60,10 @@ module Enumerable # rubocop:disable Metrics/ModuleLength
     false
   end
 
-  def my_none?(arg = nil) # rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
+  def my_none?(arg = nil)
     my_each do |item|
       if arg.class == Class
-        return false if arg === item # rubocop:disable Style/CaseEquality
+        return false if arg === item
       elsif arg.class == Regexp
         return false if arg =~ item
       elsif block_given?
@@ -104,7 +105,7 @@ module Enumerable # rubocop:disable Metrics/ModuleLength
     result
   end
 
-  def my_inject(*args) # rubocop:disable Metrics/CyclomaticComplexity, Metrics/MethodLength, Metrics/PerceivedComplexity
+  def my_inject(*args)
     new_array = is_a?(Array) ? self : to_a
     memo = args[0] if args[0].is_a? Integer
     if args[0].is_a?(Symbol) || args[0].is_a?(String)
@@ -136,3 +137,5 @@ end
 def multiply_els(array)
   array.my_inject(:*)
 end
+
+# rubocop:enable Metrics/ModuleLength, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity, Style/CaseEquality, Metrics/MethodLength
